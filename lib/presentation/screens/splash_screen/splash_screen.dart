@@ -6,7 +6,8 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: SafeArea(child: Center(
+      body: SafeArea(
+          child: Center(
         child: Text('Crud App'),
       )),
     );

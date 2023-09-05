@@ -7,14 +7,13 @@ class InputScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: SafeArea(child: 
-      Center(child: Column(
+      body: SafeArea(
+          child: Center(
+              child: Column(
         children: [
           TextField(),
           TextField(),
-          ElevatedButton(onPressed: () {
-            
-          }, child: Text('Submit'))
+          ElevatedButton(onPressed: () {}, child: Text('Submit'))
         ],
       ))),
     );

@@ -9,20 +9,19 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(),
       body: ListView.builder(
         itemBuilder: (context, index) {
-          return  ListTile(
-            leading:const CircleAvatar(),
-            title:const Text('data'),
-            subtitle:const Text('data'),
-            trailing: Row(children: [
-              IconButton(onPressed: () {
-                
-              }, icon:const Icon(Icons.edit)),
-              IconButton(onPressed: () {
-                
-              }, icon:const Icon(Icons.delete))
-            ],),
+          return ListTile(
+            leading: const CircleAvatar(),
+            title: const Text('data'),
+            subtitle: const Text('data'),
+            trailing: Row(
+              children: [
+                IconButton(onPressed: () {}, icon: const Icon(Icons.edit)),
+                IconButton(onPressed: () {}, icon: const Icon(Icons.delete))
+              ],
+            ),
           );
-        },),
+        },
+      ),
     );
   }
 }
