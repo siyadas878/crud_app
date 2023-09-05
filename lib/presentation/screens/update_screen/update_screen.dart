@@ -3,11 +3,11 @@ import 'package:crud_app/domain/data_model/data_model.dart';
 import 'package:crud_app/presentation/widgets/warning.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../widgets/textfield.dart';
 
-class InputScreen extends StatelessWidget {
-  const InputScreen({super.key});
+class UpdateScreen extends StatelessWidget {
+  final DataModel data;
+  const UpdateScreen({super.key,required this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -21,32 +21,36 @@ class InputScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TextFieldWidget(controller: context.read<GetAllProvider>().nameController,
-            labelText: 'title'),
+            TextFieldWidget(
+                controller: context.read<GetAllProvider>().updateNameController,
+                labelText: 'title'),
             SizedBox(height: size.height * 0.03),
-            TextFieldWidget(controller: context.read<GetAllProvider>().descriptionController,
-            labelText: 'description'),
+            TextFieldWidget(
+                controller:
+                    context.read<GetAllProvider>().updateDescriptionController,
+                labelText: 'description'),
             SizedBox(height: size.height * 0.03),
             ElevatedButton(
               onPressed: () async {
-                await context.read<GetAllProvider>().postData(
+                await context.read<GetAllProvider>().updateDataProvider(
                       DataModel(
                         name:
-                            context.read<GetAllProvider>().nameController.text,
+                            context.read<GetAllProvider>().updateNameController.text,
                         description: context
                             .read<GetAllProvider>()
-                            .descriptionController
+                            .updateDescriptionController
                             .text,
+                            id: data.id
                       ),
                     );
                 // ignore: use_build_context_synchronously
-                warning(context, 'Successfully added');
+                warning(context, 'Successfully Updated');
                 // ignore: use_build_context_synchronously
                 Navigator.pop(context);
               },
               child: context.read<GetAllProvider>().isLoading
                   ? const CircularProgressIndicator()
-                  : const Text('Add Task'),
+                  : const Text('Update Task'),
             )
           ],
         ),
@@ -54,5 +58,3 @@ class InputScreen extends StatelessWidget {
     );
   }
 }
-
-

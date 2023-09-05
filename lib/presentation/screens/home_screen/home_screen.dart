@@ -1,5 +1,6 @@
 import 'package:crud_app/domain/data_model/data_model.dart';
 import 'package:crud_app/presentation/screens/input_screen/input_screen.dart';
+import 'package:crud_app/presentation/screens/update_screen/update_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -42,14 +43,21 @@ class HomeScreen extends StatelessWidget {
                               child: Center(child: Text(count.toString())),
                             ),
                             title:
-                                Text(snapshot.data![index].name ?? 'No title'),
+                                Text(snapshot.data![index].name!),
                             subtitle: Text(snapshot.data![index].description ??
                                 'No description'),
                             trailing: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => UpdateScreen(
+                                      data: DataModel(
+                                        id: snapshot.data![index].id,
+                                        description: snapshot.data![index].description,
+                                        name: snapshot.data![index].name
+                                      )),));
+                                  },
                                   icon:
                                       const Icon(FontAwesomeIcons.penToSquare),
                                 ),
