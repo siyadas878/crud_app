@@ -1,8 +1,9 @@
-import 'package:crud_app/applications/provider/get_all_provider/get_all_provider,.dart';
 import 'package:crud_app/presentation/screens/home_screen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+
+import 'applications/provider/data_provider,.dart';
 
 void main() {
   runApp(const MyApp());

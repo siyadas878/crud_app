@@ -1,6 +1,9 @@
-import 'package:crud_app/applications/provider/get_all_provider/get_all_provider,.dart';
 import 'package:crud_app/domain/data_model/data_model.dart';
+import 'package:crud_app/presentation/screens/input_screen/input_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../../../applications/provider/data_provider,.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -9,7 +12,10 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(title:const Text('Home Screen'),centerTitle: true,),
+      appBar: AppBar(
+        title: const Text('Home Screen'),
+        centerTitle: true,
+      ),
       body: SafeArea(
         child: FutureBuilder<List<DataModel>?>(
           future: GetAllProvider().getalldata(),
@@ -23,7 +29,7 @@ class HomeScreen extends StatelessWidget {
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
                 return SizedBox(
-                  height: size.height*0.1,
+                  height: size.height * 0.1,
                   child: Card(
                     child: Center(
                       child: ListTile(
@@ -40,11 +46,11 @@ class HomeScreen extends StatelessWidget {
                           children: [
                             IconButton(
                               onPressed: () {},
-                              icon: const Icon(Icons.edit),
+                              icon: const Icon(FontAwesomeIcons.penToSquare),
                             ),
                             IconButton(
                               onPressed: () {},
-                              icon: const Icon(Icons.delete),
+                              icon: const Icon(FontAwesomeIcons.trashCan),
                             ),
                           ],
                         ),
@@ -56,6 +62,11 @@ class HomeScreen extends StatelessWidget {
             );
           },
         ),
+      ),
+      floatingActionButton: FloatingActionButton(onPressed: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => InputScreen(),));
+      },
+      child:const Icon(FontAwesomeIcons.fileCirclePlus),
       ),
     );
   }
