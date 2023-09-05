@@ -43,12 +43,14 @@ class InputScreen extends StatelessWidget {
                             .text,
                       ),
                     );
-                    // ignore: use_build_context_synchronously
-                    warning(context, 'Successfully added');
+                // ignore: use_build_context_synchronously
+                warning(context, 'Successfully added');
                 // ignore: use_build_context_synchronously
                 Navigator.pop(context);
               },
-              child: const Text('Add Task'),
+              child: context.read<GetAllProvider>().isLoading
+                  ? const CircularProgressIndicator()
+                  : const Text('Add Task'),
             )
           ],
         ),
