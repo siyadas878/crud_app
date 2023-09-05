@@ -21,9 +21,15 @@ class GetAllProvider extends ChangeNotifier {
   }
 
   postData(DataModel data) async {
+
     isLoading = true;
+    notifyListeners();
+    
     await addData(data);
+    
     isLoading = false;
+    notifyListeners();
+
     nameController.clear();
     descriptionController.clear();
     notifyListeners();
@@ -36,11 +42,15 @@ class GetAllProvider extends ChangeNotifier {
   }
 
   updateDataProvider(DataModel data) async {
+
     isLoading = true;
+    notifyListeners();
+
     await updateData(data);
+    
     isLoading = false;
-    updateNameController.clear();
-    updateDescriptionController.clear();
+    notifyListeners();
+
     notifyListeners();
   }
 }

@@ -5,7 +5,6 @@ import 'package:http/http.dart' as http;
 
 Future<void> updateData(DataModel updatedData) async {
   String id=updatedData.id.toString();
-  print(id??'----------------');
   final response = await http.put(
     Uri.parse("https://64f6a5e89d77540849526cb3.mockapi.io/tasks/$id"), 
     headers: <String, String>{

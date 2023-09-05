@@ -1,8 +1,7 @@
-import 'package:crud_app/presentation/screens/home_screen/home_screen.dart';
+import 'package:crud_app/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-
 import 'applications/provider/data_provider,.dart';
 
 void main() {
@@ -28,7 +27,7 @@ class MyApp extends StatelessWidget {
           primaryColor: Colors.teal,
           fontFamily: GoogleFonts.montserrat().fontFamily,
         ),
-        home: const HomeScreen(),
+        home: const SplashScreen(),
       ),
     );
   }

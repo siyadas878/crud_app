@@ -1,3 +1,4 @@
+// ignore_for_file: use_build_context_synchronously
 import 'package:crud_app/applications/provider/data_provider,.dart';
 import 'package:crud_app/domain/data_model/data_model.dart';
 import 'package:crud_app/presentation/widgets/warning.dart';
@@ -11,9 +12,10 @@ class InputScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var provider = context.watch<GetAllProvider>();
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(title:const Text('Add Data')),
       body: SafeArea(
           child: Center(
               child: Padding(
@@ -25,29 +27,25 @@ class InputScreen extends StatelessWidget {
             labelText: 'title'),
             SizedBox(height: size.height * 0.03),
             TextFieldWidget(controller: context.read<GetAllProvider>().descriptionController,
-            labelText: 'description'),
+            labelText: 'description',maxlines: 2),
             SizedBox(height: size.height * 0.03),
             ElevatedButton(
-              onPressed: () async {
-                await context.read<GetAllProvider>().postData(
-                      DataModel(
-                        name:
-                            context.read<GetAllProvider>().nameController.text,
-                        description: context
-                            .read<GetAllProvider>()
-                            .descriptionController
-                            .text,
-                      ),
-                    );
-                // ignore: use_build_context_synchronously
-                warning(context, 'Successfully added');
-                // ignore: use_build_context_synchronously
-                Navigator.pop(context);
-              },
-              child: context.read<GetAllProvider>().isLoading
-                  ? const CircularProgressIndicator()
-                  : const Text('Add Task'),
-            )
+                  onPressed: provider.isLoading
+                      ? null 
+                      : () async {
+                          await provider.postData(
+                            DataModel(
+                              name: provider.nameController.text,
+                              description: provider.descriptionController.text,
+                            ),
+                          );
+                          warning(context, 'Successfully added');
+                          Navigator.pop(context);
+                        },
+                  child: provider.isLoading
+                      ?const CircularProgressIndicator()
+                      :const Text('Add Task'),
+                )
           ],
         ),
       ))),

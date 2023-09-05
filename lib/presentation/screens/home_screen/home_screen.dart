@@ -1,3 +1,4 @@
+// ignore_for_file: use_build_context_synchronously
 import 'package:crud_app/domain/data_model/data_model.dart';
 import 'package:crud_app/presentation/screens/input_screen/input_screen.dart';
 import 'package:crud_app/presentation/screens/update_screen/update_screen.dart';
@@ -42,8 +43,7 @@ class HomeScreen extends StatelessWidget {
                               radius: 40,
                               child: Center(child: Text(count.toString())),
                             ),
-                            title:
-                                Text(snapshot.data![index].name!),
+                            title: Text(snapshot.data![index].name!),
                             subtitle: Text(snapshot.data![index].description ??
                                 'No description'),
                             trailing: Row(
@@ -51,22 +51,49 @@ class HomeScreen extends StatelessWidget {
                               children: [
                                 IconButton(
                                   onPressed: () {
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => UpdateScreen(
-                                      data: DataModel(
-                                        id: snapshot.data![index].id,
-                                        description: snapshot.data![index].description,
-                                        name: snapshot.data![index].name
-                                      )),));
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => UpdateScreen(
+                                              data: DataModel(
+                                                  id: snapshot.data![index].id,
+                                                  description: snapshot
+                                                      .data![index].description,
+                                                  name: snapshot
+                                                      .data![index].name)),
+                                        ));
                                   },
                                   icon:
                                       const Icon(FontAwesomeIcons.penToSquare),
                                 ),
                                 IconButton(
                                   onPressed: () async {
-                                    await context
-                                        .read<GetAllProvider>()
-                                        .deleteDataProvider(
-                                            snapshot.data![index].id!);
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) => AlertDialog(
+                                        title: const Text('Delete'),
+                                        content:
+                                            const Text('Do yo want to Delete'),
+                                        actions: <Widget>[
+                                          TextButton(
+                                            child: const Text('Cancel'),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                          ),
+                                          TextButton(
+                                            child: const Text('Delete'),
+                                            onPressed: () async {
+                                              await context
+                                                  .read<GetAllProvider>()
+                                                  .deleteDataProvider(snapshot
+                                                      .data![index].id!);
+                                              Navigator.pop(context);
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    );
                                   },
                                   icon: const Icon(FontAwesomeIcons.trashCan),
                                 ),
