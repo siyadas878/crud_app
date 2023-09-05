@@ -1,17 +1,17 @@
 class DataModel {
-  String? title;
+  String? name;
   String? description;
 
-  DataModel({this.title, this.description});
+  DataModel({this.name, this.description});
 
   DataModel.fromJson(Map<String, dynamic> json) {
-    title = json['title'];
+    name = json['name'];
     description = json['description'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['title'] = title;
+    data['name'] = name;
     data['description'] = description;
     return data;
   }
