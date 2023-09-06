@@ -1,22 +1,37 @@
 // ignore_for_file: use_build_context_synchronously
-import 'package:crud_app/applications/provider/data_provider,.dart';
-import 'package:crud_app/domain/data_model/data_model.dart';
-import 'package:crud_app/presentation/widgets/warning.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:crud_app/domain/data_model/data_model.dart';
+import 'package:crud_app/presentation/widgets/warning.dart';
+import '../../../applications/provider/data_provider,.dart';
 import '../../widgets/textfield.dart';
 
-class UpdateScreen extends StatelessWidget {
+class UpdateScreen extends StatefulWidget {
   final DataModel data;
+
   const UpdateScreen({Key? key, required this.data}) : super(key: key);
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _UpdateScreenState createState() => _UpdateScreenState();
+}
+
+class _UpdateScreenState extends State<UpdateScreen> {
+  TextEditingController updateNameController = TextEditingController();
+  TextEditingController updateDescriptionController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    updateNameController.text = widget.data.name!;
+    updateDescriptionController.text = widget.data.description!;
+  }
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     var provider = context.read<GetAllProvider>();
-
-    provider.updateNameController.text = data.name!;
-    provider.updateDescriptionController.text = data.description!;
 
     return Scaffold(
       appBar: AppBar(title: const Text('Update Data')),
@@ -28,12 +43,12 @@ class UpdateScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextFieldWidget(
-                  controller: provider.updateNameController,
+                  controller: updateNameController,
                   labelText: 'title',
                 ),
                 SizedBox(height: size.height * 0.03),
                 TextFieldWidget(
-                  controller: provider.updateDescriptionController,
+                  controller: updateDescriptionController,
                   labelText: 'description',
                   maxlines: 2,
                 ),
@@ -44,9 +59,9 @@ class UpdateScreen extends StatelessWidget {
                       : () async {
                           await provider.updateDataProvider(
                             DataModel(
-                              name: provider.updateNameController.text,
-                              description: provider.updateDescriptionController.text,
-                              id: data.id,
+                              name: updateNameController.text,
+                              description: updateDescriptionController.text,
+                              id: widget.data.id,
                             ),
                           );
                           warning(context, 'Successfully Updated');
@@ -62,5 +77,12 @@ class UpdateScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    updateNameController.dispose();
+    updateDescriptionController.dispose();
+    super.dispose();
   }
 }

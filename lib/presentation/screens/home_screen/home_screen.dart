@@ -12,7 +12,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home Screen'),
@@ -34,7 +33,6 @@ class HomeScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     int count = index + 1;
                     return SizedBox(
-                      height: size.height * 0.1,
                       child: Card(
                         child: Center(
                           child: ListTile(
